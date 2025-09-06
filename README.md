@@ -5,7 +5,7 @@ A simple template repository for hosting a static personal portfolio website on 
 ## Workshop Overview
 
 This hands-on workshop will guide students through:
-1. Setting up a GitHub repository
+1. Cloning up a GitHub repository
 2. Creating a Google Cloud Storage bucket
 3. Configuring static website hosting
 4. Deploying a personal portfolio website
@@ -41,9 +41,9 @@ graph TD
 
     %% Command Details
     D -- "git clone https:\/\/github.com\/user\/repo" --> E
-    H -- "gsutil mb gs://bucket-name" --> I
-    I -- "gsutil iam ch allUsers:objectViewer gs://bucket-name" --> J
-    K -- "gsutil -m cp -r * gs://bucket-name/" --> L
+    H -- "gcloud storage buckets create gs://bucket-name" --> I
+    I -- "gcloud storage buckets add-iam-policy-binding gs://bucket-name --member=allUsers --role=roles/storage.objectViewer" --> J
+    K -- "gcloud storage cp -r * gs://bucket-name/" --> L
     M -- "https:\/\/storage.googleapis.com/bucket-name/index.html" --> N
 ```
 
@@ -185,9 +185,9 @@ gcloud config set project YOUR_PROJECT_ID
 After completing this workshop, students can:
 
 1. Learn about Cloud CDN for better performance
-2. Explore Cloud Build for automated deployments
-3. Set up custom domains with Cloud DNS
-4. Implement CI/CD pipelines
+2. Learn about CI/CD
+3. Explore GitHub Actions for automated deployments
+4. Set up custom domains with Cloud DNS
 5. Add dynamic content with Cloud Functions
 
 ## Resources
