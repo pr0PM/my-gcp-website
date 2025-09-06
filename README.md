@@ -89,24 +89,24 @@ cd gcp-static-website
 
 ```bash
 # Create a new bucket (replace 'your-bucket-name' with a unique name)
-gsutil mb gs://your-bucket-name
+gcloud storage buckets create gs://your-bucket-name
 
 # Make the bucket publicly accessible
-gsutil iam ch allUsers:objectViewer gs://your-bucket-name
+gcloud storage buckets add-iam-policy-binding gs://your-bucket-name --member=allUsers --role=roles/storage.objectViewer
 ```
 
 ### 6. Configure Static Website Hosting
 
 ```bash
 # Set the main page for your website
-gsutil web set -m index.html gs://your-bucket-name
+gcloud storage buckets update gs://your-bucket-name --web-main-page-suffix=index.html --web-error-page=404.html
 ```
 
 ### 7. Upload Your Website Files
 
 ```bash
 # Upload all files to the bucket
-gsutil -m cp -r * gs://your-bucket-name/
+gcloud storage cp -r * gs://your-bucket-name/
 ```
 
 ### 8. Access Your Website
@@ -116,10 +116,16 @@ Your website will be available at:
 https://storage.googleapis.com/your-bucket-name/index.html
 ```
 
+### 9. Cleanup Your Bucket
+To delete the bucket
+```
+gcloud storage rm --recursive gs://your-bucket-name
+```
+
 ## File Structure
 
 ```
-gcp-static-website/
+my-gcp-website/
 ├── index.html          # Main website file
 ├── styles.css          # CSS styling
 └── README.md          # This file
@@ -155,7 +161,7 @@ Customize `styles.css` to:
 
 ### Bucket Name Already Exists
 ```bash
-# Try a different bucket name
+# Try a different unique bucket name
 gsutil mb gs://your-bucket-name-2024
 ```
 
@@ -171,24 +177,16 @@ gcloud config set project YOUR_PROJECT_ID
 2. Verify files are uploaded: `gsutil ls gs://your-bucket-name/`
 3. Check website configuration: `gsutil web get gs://your-bucket-name`
 
-## Optional Enhancements
-
-1. **Add GitHub Actions** for automatic deployment
-2. **Setup Cloud Build triggers** for CI/CD
-3. **Implement version control** with proper branching
-4. **Add cache control headers** for better performance
-5. **Custom domain setup** with Cloud DNS
-6. **SSL certificate** configuration
-
 ## Next Steps
 
 After completing this workshop, students can:
 
-1. Learn about Cloud CDN for better performance
+
 2. Learn about CI/CD
 3. Explore GitHub Actions for automated deployments
+5. Learn about SSL
 4. Set up custom domains with Cloud DNS
-5. Add dynamic content with Cloud Functions
+1. Learn about Cloud CDN for better performance
 
 ## Resources
 
